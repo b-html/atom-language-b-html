@@ -1,0 +1,13 @@
+{
+  "name": "language-b-html",
+  "version": "0.0.0",
+  "description": "b-html support in Atom",
+  "keywords": [
+    "b-html"
+  ],
+  "repository": "https://github.com/b-html/atom-language-b-html",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  }
+}
