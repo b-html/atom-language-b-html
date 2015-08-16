@@ -1,5 +1,5 @@
 '.text.bhtml':
   'editor':
     'autoIndentOnPaste': false
-    'commentStart': '<!'
+    'commentStart': '<!--'
     'increaseIndentPattern': '^\\s*</?[a-zA-Z0-9:-]+'

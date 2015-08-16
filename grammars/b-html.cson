@@ -1,43 +1,99 @@
-'scopeName': 'text.bhtml'
-'fileTypes': ['bhtml']
-'name': 'b-html'
-'patterns': [
-  {
-    'match': '\\s*(</?)([a-zA-Z0-9:-]+)(.*)'
-    'captures':
-      '1':
-        'name': 'punctuation.definition.tag.bhtml'
-      '2':
-        'name': 'entity.name.tag.bhtml'
-      '3':
-        'name': 'invalid.illegal'
-    'name': 'meta.element.bhtml'
-  }
-  {
-    'match': '\\s*(<!)(.+)'
-    'captures':
-      '1':
-        'name': 'punctuation.definition.tag.bhtml'
-      '2':
-        'name': 'comment.line.bhtml'
-    'name': 'meta.comment.bhtml'
-  }
-  {
-    'match': '\\s*(@)([^"\'>\/= ]+)(?:\\s+(.+))?'
-    'captures':
-      '1':
-        'name': 'punctuation.definition.tag.bhtml'
-      '2':
-        'name': 'entity.name.tag.bhtml'
-      '3':
-        'name': 'string.quoted.double.bhtml'
-    'name': 'meta.attribute.bhtml'
-  }
-  {
-    'match': '\\s*(>?).+'
-    'captures':
-      '1':
-        'name': 'punctuation.definition.tag.bhtml'
-    'name': 'meta.text.bhtml'
-  }
+scopeName: 'text.bhtml'
+fileTypes: ['bhtml']
+name: 'b-html'
+patterns: [
+  match: '^\\s*(<.*)$'
+  captures:
+    1:
+      patterns: [
+        include: '#element'
+      ,
+        include: '#emptyelement'
+      ,
+        include: '#comment'
+      ,
+        include: '#doctype'
+    ]
+,
+  match: '^\\s*(@.*)$'
+  captures:
+    1:
+      patterns: [
+        include: '#attribute'
+      ]
+,
+  match: '^\\s*(>.*)$'
+  captures:
+    1:
+      patterns: [
+        include: '#text'
+      ]
+,
+  match: '^\\s*(\\|.*)$'
+  captures:
+    1:
+      patterns: [
+        include: '#newlinetext'
+      ]
 ]
+repository:
+  attribute:
+    name: 'meta.attribute.bhtml'
+    match: '^(@)([^"\'>\/= ]+)(?:\\s+(.+))?$'
+    captures:
+      1:
+        name: 'punctuation.definition.tag.bhtml'
+      2:
+        name: 'entity.name.tag.bhtml'
+      3:
+        name: 'string.quoted.double.bhtml'
+  comment:
+    name: 'meta.comment.bhtml'
+    match: '^(<!--)(.*)$'
+    captures:
+      1:
+        name: 'punctuation.definition.tag.bhtml'
+      2:
+        name: 'comment.line.bhtml'
+  doctype:
+    name: 'meta.doctype.bhtml'
+    match: '^(<!)(doctype|DOCTYPE)(.*)$'
+    captures:
+      1:
+        name: 'punctuation.definition.tag.bhtml'
+      2:
+        name: 'entity.name.tag.bhtml'
+      3:
+        name: 'string.quoted.double.bhtml'
+  element:
+    name: 'meta.element.bhtml'
+    match: '^(<)([a-zA-Z0-9:-]+)(.*)$'
+    captures:
+      1:
+        name: 'punctuation.definition.tag.bhtml'
+      2:
+        name: 'entity.name.tag.bhtml'
+      3:
+        name: 'invalid.illegal'
+  emptyelement:
+    name: 'meta.emptyelement.bhtml'
+    match: '^(</)([a-zA-Z0-9:-]+)(.*)$'
+    captures:
+      1:
+        name: 'punctuation.definition.tag.bhtml'
+      2:
+        name: 'entity.name.tag.bhtml'
+      3:
+        name: 'invalid.illegal.bhtml'
+  newlinetext:
+    name: 'meta.newlinetext.bhtml'
+    match: '^(\\|)(.*)$'
+    captures:
+      1:
+        name: 'punctuation.definition.tag.bhtml'
+  text:
+    name: 'meta.text.bhtml'
+    match: '^(>)(.*)$'
+    captures:
+      1:
+        name: 'punctuation.definition.tag.bhtml'
